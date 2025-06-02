@@ -17,7 +17,6 @@ abstract class Usuario {
     }
 
     public void opinar(Muestra muestra, TipoOpinion tipo) {
-        // Validacion de duplicados iria en muestra ?
         Opinion opinion = new Opinion(this, tipo, esExperto());
         muestra.agregarOpinion(opinion);
         opiniones.add(opinion);

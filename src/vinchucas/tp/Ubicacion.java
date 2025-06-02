@@ -1,5 +1,7 @@
 package vinchucas.tp;
 
+import calculadoraDistancia.CalculadoraDistancia;
+
 public class Ubicacion {
     private double latitud;
     private double longitud;
@@ -26,8 +28,8 @@ public class Ubicacion {
 		this.longitud = longitud;
 	}
 
-    public double distanciaA(Ubicacion otra) {
-        // Implementación Tomas
-        return 0;
-    }
+	public double distanciaA(Ubicacion otra) {
+	    return CalculadoraDistancia.calcularDistanciaEntreUbicaciones(this, otra);
+	
+	}
 }
