@@ -2,30 +2,29 @@ package vinchucas.tp;
 
 import calculadoraDistancia.CalculadoraDistancia;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ZonaDeCobertura implements MuestraObserver {
     private String nombre;
     private Ubicacion epicentro;
     private double radio;
-    private Set<Muestra> muestras;
-    private Set<Organizacion> organizacionesRegistradas;
+    private List<Muestra> muestras;
+    private List<Organizacion> organizacionesRegistradas;
+
 
     public ZonaDeCobertura(String nombre, Ubicacion epicentro, double radio) {
         this.nombre = nombre;
         this.epicentro = epicentro;
         this.radio = radio;
-        this.muestras = new HashSet<>();
-        this.organizacionesRegistradas = new HashSet<>();
+        this.muestras = new ArrayList<>();
+        this.organizacionesRegistradas = new ArrayList<>();
     }
 
     // Getters
     public String getNombre() { return nombre; }
     public Ubicacion getEpicentro() { return epicentro; }
     public double getRadio() { return radio; }
-    public Set<Muestra> getMuestras() { return new HashSet<>(muestras); } // Para que no me toquen el set
+    public List<Muestra> getMuestras() { return new ArrayList<>(muestras); } // Para que no me toquen la lista
 
     // Principal
     public boolean contiene(Ubicacion ubicacion) {
@@ -37,14 +36,23 @@ public class ZonaDeCobertura implements MuestraObserver {
     }
 
     // Muestras
+    
     public void agregarMuestra(Muestra muestra) {
-        if (this.contiene(muestra.getUbicacion())) {
+        if (!contieneMuestra(muestra) && this.contiene(muestra.getUbicacion())) {
             muestras.add(muestra);
-            muestra.agregarObservador(this);  // Observador
+            muestra.agregarObservador(this);
             notificarNuevaMuestra(muestra);
         }
     }
     
+    private boolean contieneMuestra(Muestra muestra) {
+        for (Muestra m : muestras) {
+            if (m.equals(muestra)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void muestraVerificada(Muestra muestra) {
         if (this.contiene(muestra.getUbicacion())) {
@@ -55,7 +63,9 @@ public class ZonaDeCobertura implements MuestraObserver {
 
     // Organizacion
     public void registrarOrganizacion(Organizacion org) {
-        organizacionesRegistradas.add(org);
+        if (!organizacionesRegistradas.contains(org)) {
+            organizacionesRegistradas.add(org);
+        }
     }
 
     public void desregistrarOrganizacion(Organizacion org) {

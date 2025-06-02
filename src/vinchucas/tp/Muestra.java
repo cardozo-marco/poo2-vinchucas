@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Muestra {
 	private Ubicacion ubicacion;
+	private Usuario autor;
 	private List<MuestraObserver> observadores = new ArrayList<>();
     private List<Opinion> opiniones;
     private boolean verificada = false;
@@ -13,9 +14,14 @@ public class Muestra {
         observadores.add(observador);
     }
 
-    public Muestra(Ubicacion ubicacion) {
+    public Muestra(Ubicacion ubicacion, Usuario autor) {
+    	this.autor = autor;
         this.ubicacion = ubicacion;
         this.opiniones = new ArrayList<>();
+    }
+    
+    public Usuario getAutor() {
+        return autor;
     }
 
     public void agregarOpinion(Opinion opinion) {

@@ -10,12 +10,13 @@ class MuestraTest {
     
     private Muestra muestra;
     private Ubicacion ubicacion;
+    private Usuario autor;
     private MuestraObserver observer;
     
     @BeforeEach
     void setUp() {
         ubicacion = mock(Ubicacion.class);
-        muestra = new Muestra(ubicacion);
+        muestra = new Muestra(ubicacion, autor);
         observer = mock(MuestraObserver.class);
         muestra.agregarObservador(observer);
     }

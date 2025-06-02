@@ -12,6 +12,7 @@ class ZonaDeCoberturaTest {
     private ZonaDeCobertura zona;
     private Ubicacion epicentro;
     private Muestra muestraDentro, muestraFuera;
+    private Usuario autor;
     private Organizacion organizacion;
     
     @BeforeEach
@@ -25,8 +26,8 @@ class ZonaDeCoberturaTest {
         when(epicentro.distanciaA(ubicacionDentro)).thenReturn(5.0);
         when(epicentro.distanciaA(ubicacionFuera)).thenReturn(15.0);
         
-        muestraDentro = new Muestra(ubicacionDentro);
-        muestraFuera = new Muestra(ubicacionFuera);
+        muestraDentro = new Muestra(ubicacionDentro, autor);
+        muestraFuera = new Muestra(ubicacionFuera, autor);
         
         organizacion = mock(Organizacion.class);
     }

@@ -13,11 +13,29 @@ abstract class Usuario {
     public abstract boolean esExperto();
 
     public void enviarMuestra(Muestra muestra) {
+        // Check si ya lo envie
+        for (Muestra m : muestras) {
+            if (m.equals(muestra)) {
+                throw new IllegalStateException("Ya enviaste esta muestra");
+            }
+        }
         muestras.add(muestra);
     }
 
     public void opinar(Muestra muestra, TipoOpinion tipo) {
-        Opinion opinion = new Opinion(this, tipo, esExperto());
+        // Check si ya vote
+        for (Opinion op : opiniones) {
+            if (op.getMuestra().equals(muestra)) {
+                throw new IllegalStateException("Ya opinaste en esta muestra");
+            }
+        }
+        
+        // Check si es mia
+        if (muestra.getAutor().equals(this)) {
+            throw new IllegalStateException("No podes opinar en tu muestra");
+        }
+        
+        Opinion opinion = new Opinion(this, tipo, esExperto(), muestra);
         muestra.agregarOpinion(opinion);
         opiniones.add(opinion);
     }
