@@ -1,7 +1,21 @@
 package vinchucas.tp;
 
-enum TipoOpinion {
-    VINCHUCA_INFESTANS, VINCHUCA_SORDIDA, VINCHUCA_GUASAYANA,
-    CHINCHE_FOLIADA, PHTIA_CHINCHE, NINGUNA, POCO_CLARA
-}
+public enum TipoOpinion {
+	VINCHUCA_INFESTANS("Vinchuca Infestans"),
+    VINCHUCA_SORDIDA("Vinchuca Sordida"),
+    VINCHUCA_GUASAYANA("Vinchuca Guasayana"),
+    CHINCHE_FOLIADA("Chinche Foliada"),
+    PHTIA_CHINCHE("Phtia Chinche"),
+    NINGUNA("Ninguna"),
+    POCO_CLARA("Imagen poco clara");
 
+    private final String descripcion;
+
+    TipoOpinion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+}
