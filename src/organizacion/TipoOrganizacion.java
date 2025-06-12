@@ -1,4 +1,4 @@
-package vinchucas.tp;
+package organizacion;
 
 public enum TipoOrganizacion {
 	SALUD,

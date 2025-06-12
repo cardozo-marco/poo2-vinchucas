@@ -1,8 +1,11 @@
-package vinchucas.tp;
+package ubicacion;
 
-import calculadoraDistancia.CalculadoraDistancia;
 import java.util.ArrayList;
 import java.util.List;
+
+import muestra.Muestra;
+import muestra.MuestraObserver;
+import organizacion.Organizacion;
 
 public class ZonaDeCobertura implements MuestraObserver {
     private String nombre;
@@ -12,10 +15,10 @@ public class ZonaDeCobertura implements MuestraObserver {
     private List<Organizacion> organizacionesRegistradas;
 
 
-    public ZonaDeCobertura(String nombre, Ubicacion epicentro, double radio) {
+    public ZonaDeCobertura(String nombre, Ubicacion epicentro, double radioKm) {
         this.nombre = nombre;
         this.epicentro = epicentro;
-        this.radio = radio;
+        this.radio = radioKm;
         this.muestras = new ArrayList<>();
         this.organizacionesRegistradas = new ArrayList<>();
     }
@@ -67,6 +70,7 @@ public class ZonaDeCobertura implements MuestraObserver {
             organizacionesRegistradas.add(org);
         }
     }
+    
 
     public void desregistrarOrganizacion(Organizacion org) {
         organizacionesRegistradas.remove(org);

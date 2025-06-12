@@ -1,11 +1,17 @@
-package vinchucas.tp;
+package ubicacion;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InOrder;
+
+import muestra.Muestra;
+import muestra.enums.Especie;
+import muestra.estados.EstadoMuestra;
+import organizacion.Organizacion;
+import usuario.Usuario;
+
 
 class ZonaDeCoberturaTest {
     
@@ -26,8 +32,22 @@ class ZonaDeCoberturaTest {
         when(epicentro.distanciaA(ubicacionDentro)).thenReturn(5.0);
         when(epicentro.distanciaA(ubicacionFuera)).thenReturn(15.0);
         
-        muestraDentro = new Muestra(ubicacionDentro, autor);
-        muestraFuera = new Muestra(ubicacionFuera, autor);
+        muestraDentro = new Muestra(
+            "fotoDentro.png",
+            ubicacionDentro,
+            autor,
+            Especie.INFESTANS,
+            java.time.LocalDate.now(),
+            mock(EstadoMuestra.class)
+        );
+        muestraFuera = new Muestra(
+            "fotoFuera.png",
+            ubicacionFuera,
+            autor,
+            Especie.INFESTANS,
+            java.time.LocalDate.now(),
+            mock(EstadoMuestra.class)
+        );
         
         organizacion = mock(Organizacion.class);
     }
@@ -54,6 +74,23 @@ class ZonaDeCoberturaTest {
         verify(organizacion).notificarNuevaMuestra(zona, muestraDentro);
     }
     
+    @Test
+    void testAgregarMismaMuestraDosVeces() {
+        zona.agregarMuestra(muestraDentro);
+        zona.agregarMuestra(muestraDentro);
+        assertEquals(1, zona.getMuestras().stream().filter(m -> m == muestraDentro).count());
+    }
+
+    @Test
+    void testNoNotificarOrganizacionDesregistrada() {
+        zona.registrarOrganizacion(organizacion);
+        zona.desregistrarOrganizacion(organizacion);
+        zona.agregarMuestra(muestraDentro);
+        muestraDentro.verificar();
+        verify(organizacion, never()).notificarValidacion(any(), any());
+        verify(organizacion, never()).notificarNuevaMuestra(any(), any());
+    }
+
     @Test
     void testNotificarValidacion() {
         zona.registrarOrganizacion(organizacion);

@@ -1,4 +1,4 @@
-package calculadoraDistanciaTest;
+package ubicacion;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,9 +7,9 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import calculadoraDistancia.CalculadoraDistancia;
-import vinchucas.tp.Ubicacion;
-import vinchucas.tp.ZonaDeCobertura;
+import ubicacion.CalculadoraDistancia;
+import ubicacion.Ubicacion;
+import ubicacion.ZonaDeCobertura;
 
 class CalculadoraDistanciaTest {
 

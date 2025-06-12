@@ -1,6 +1,4 @@
-package vinchucas.tp;
-
-import calculadoraDistancia.CalculadoraDistancia;
+package ubicacion;
 
 public class Ubicacion {
     private double latitud;

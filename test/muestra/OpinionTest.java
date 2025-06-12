@@ -1,4 +1,4 @@
-package vinchucas.tp;
+package muestra;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -6,25 +6,33 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import muestra.enums.TipoOpinion;
+import usuario.Usuario;
+import java.time.LocalDate;
+
+
 class OpinionTest {
     
     private Usuario usuario;
     private Muestra muestra;
+    private LocalDate fecha;
     
     @BeforeEach
     void setUp() {
         usuario = mock(Usuario.class);
         muestra = mock(Muestra.class);
+        fecha = LocalDate.now();
     }
     
     @Test
     void testCreacionOpinion() {
-        Opinion opinion = new Opinion(usuario, TipoOpinion.VINCHUCA_INFESTANS, false, muestra);
+        Opinion opinion = new Opinion(usuario, TipoOpinion.VINCHUCA, false, muestra, fecha);
         
         assertEquals(usuario, opinion.getAutor());
         assertEquals(muestra, opinion.getMuestra());
-        assertEquals(TipoOpinion.VINCHUCA_INFESTANS, opinion.getTipo());
+        assertEquals(TipoOpinion.VINCHUCA, opinion.getTipo());
         assertFalse(opinion.esDeExperto());
+        assertEquals(fecha, opinion.getFecha());
     }
     
     @Test
@@ -35,12 +43,12 @@ class OpinionTest {
         
         // Deberia tirar exc
         assertThrows(IllegalStateException.class, () -> 
-            new Opinion(creador, TipoOpinion.VINCHUCA_INFESTANS, false, muestra));
+            new Opinion(creador, TipoOpinion.VINCHUCA, false, muestra, fecha));
     }
     
     @Test
     void testOpinionDeExperto() {
-        Opinion opinionExperta = new Opinion(usuario,TipoOpinion.VINCHUCA_INFESTANS, true, muestra);
+        Opinion opinionExperta = new Opinion(usuario,TipoOpinion.VINCHUCA, true, muestra, fecha);
         assertTrue(opinionExperta.esDeExperto());
     }
 }

@@ -1,6 +1,4 @@
-package calculadoraDistancia;
-import vinchucas.tp.Ubicacion;
-import vinchucas.tp.ZonaDeCobertura;
+package ubicacion;
 
 public class CalculadoraDistancia {
 

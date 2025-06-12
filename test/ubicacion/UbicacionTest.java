@@ -1,9 +1,10 @@
-package vinchucas.tp;
+package ubicacion;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
+
+import ubicacion.Ubicacion;
 
 
 class UbicacionTest {
