@@ -15,5 +15,6 @@ public interface EstadoMuestra {
     default void notificarSiVerificada(Muestra muestra) {}
 
     void agregarOpinion(Muestra muestra, Opinion opinion);
+    
     String getNombreEstado();
 }

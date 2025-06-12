@@ -97,4 +97,14 @@ public class Muestra {
     public String getNombreEstado() {
         return estado.getNombreEstado();
     }
+    
+    public long contarCoincidenciasDeExpertos() {
+        return this.getHistorialOpiniones().getOpiniones().stream()
+            .filter(o -> o.getAutor().esExperto())
+            .collect(java.util.stream.Collectors.groupingBy(
+                o -> o.getTipo(),
+                java.util.stream.Collectors.counting()
+            ))
+            .values().stream().filter(c -> c >= 2).count();
+    }
 }
