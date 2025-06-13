@@ -6,7 +6,7 @@ public class EstadoEspecialista implements EstadoUsuario {
     public boolean esExperto() { return true; }
     @Override
     public boolean esEspecialista() { return true; }
-    @Override
+    
     public boolean cumpleRequisitosDeExperto(Usuario usuario) {
         return true;
     }

@@ -107,4 +107,11 @@ public class Muestra {
             ))
             .values().stream().filter(c -> c >= 2).count();
     }
+    
+    public LocalDate getFechaUltimaVotacion() {
+        return this.getOpiniones().stream()
+            .map(o -> o.getFecha())
+            .max((fecha1, fecha2) -> fecha1.compareTo(fecha2))
+            .orElse(this.getFechaCreacion()); //si no tiene opiniones
+    }
 }
