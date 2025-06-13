@@ -17,4 +17,16 @@ public class HistorialOpiniones {
     public List<Opinion> getOpiniones() {
         return opiniones;
     }
+    
+    public int cantidadOpinionesExperto() {
+    	int opinionesExpertos = (int) this.getOpiniones().stream()
+                .filter(opinion -> opinion.getAutor().esExperto())
+                .count();
+    	
+    	return opinionesExpertos;
+    }
+    
+    public Opinion getUltimaOpinion() {
+    	return this.opiniones.get(this.opiniones.size() - 1);
+    }
 }

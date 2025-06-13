@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import muestra.enums.Especie;
+import muestra.enums.TipoOpinion;
 import muestra.estados.EstadoMuestra;
 import muestra.estados.EstadoVerificada;
 import ubicacion.Ubicacion;
@@ -20,6 +21,7 @@ public class Muestra {
     private HistorialOpiniones historialOpiniones;
     private EstadoMuestra estado;
     private List<MuestraObserver> observadores = new ArrayList<>();
+    private TipoOpinion resultadoVerificado;
 
     public Muestra(String foto, Ubicacion ubicacion, Usuario usuarioCreador, Especie especieInicial, LocalDate fechaCreacion, EstadoMuestra estadoInicial) {
         this.foto = foto;
@@ -29,6 +31,7 @@ public class Muestra {
         this.fechaCreacion = fechaCreacion;
         this.historialOpiniones = new HistorialOpiniones();
         this.estado = estadoInicial;
+        this.resultadoVerificado = TipoOpinion.NINGUNA;
     }
 
     public Usuario getAutor() {
@@ -64,6 +67,10 @@ public class Muestra {
     public void setEstado(EstadoMuestra nuevoEstado) {
         this.estado = nuevoEstado;
     }
+    
+    public void setResultadoVerificado(TipoOpinion tipo) {
+    	this.resultadoVerificado = tipo;
+    }
 
     public void verificar() {
         setEstado(new EstadoVerificada());
@@ -98,14 +105,8 @@ public class Muestra {
         return estado.getNombreEstado();
     }
     
-    public long contarCoincidenciasDeExpertos() {
-        return this.getHistorialOpiniones().getOpiniones().stream()
-            .filter(o -> o.getAutor().esExperto())
-            .collect(java.util.stream.Collectors.groupingBy(
-                o -> o.getTipo(),
-                java.util.stream.Collectors.counting()
-            ))
-            .values().stream().filter(c -> c >= 2).count();
+    public TipoOpinion getResultadoVerificado() {
+    	return this.resultadoVerificado;
     }
     
     public LocalDate getFechaUltimaVotacion() {
@@ -113,5 +114,9 @@ public class Muestra {
             .map(o -> o.getFecha())
             .max((fecha1, fecha2) -> fecha1.compareTo(fecha2))
             .orElse(this.getFechaCreacion()); //si no tiene opiniones
+    }
+    
+    public TipoOpinion getResultadoUltimaOpinion() {
+    	return (this.getHistorialOpiniones().getUltimaOpinion()).getTipo();
     }
 }

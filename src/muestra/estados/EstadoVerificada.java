@@ -1,6 +1,7 @@
 package muestra.estados;
 
 import muestra.*;
+import muestra.enums.TipoOpinion;
 
 public class EstadoVerificada implements EstadoMuestra {
     @Override
@@ -18,5 +19,10 @@ public class EstadoVerificada implements EstadoMuestra {
     @Override
     public String getNombreEstado() {
         return "Verificada";
+    }
+    
+    @Override
+    public TipoOpinion getResultadoActual(Muestra muestra) {
+    	return muestra.getResultadoVerificado();
     }
 }
