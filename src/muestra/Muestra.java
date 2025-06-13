@@ -119,4 +119,8 @@ public class Muestra {
     public TipoOpinion getResultadoUltimaOpinion() {
     	return (this.getHistorialOpiniones().getUltimaOpinion()).getTipo();
     }
+    
+    public int cantidadOpinionesExperto() {
+    	return this.historialOpiniones.cantidadOpinionesExperto(); 
+    }
 }

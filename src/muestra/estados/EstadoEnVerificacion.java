@@ -40,7 +40,7 @@ public class EstadoEnVerificacion implements EstadoMuestra {
     /*
      * Indica si un tipoOpinion específica está respaldada por al menos un experto.
     */
-    private boolean hayCoincidenciaDeExpertos(Muestra muestra, TipoOpinion tipo) {
+    public boolean hayCoincidenciaDeExpertos(Muestra muestra, TipoOpinion tipo) {
     	Stream<TipoOpinion> clasifDeExpertos = muestra.getOpiniones().stream()
                 .filter(o -> o.getAutor().esExperto())
                 .map(o -> o.getTipo());
@@ -55,7 +55,7 @@ public class EstadoEnVerificacion implements EstadoMuestra {
     @Override
     public TipoOpinion getResultadoActual(Muestra muestra) {
     	// Si hay mas de una opinion de experto se considera empate, y se retorna el tipoDeOpinion NINGUNA
-    	if (muestra.getHistorialOpiniones().cantidadOpinionesExperto() > 1) {
+    	if (muestra.cantidadOpinionesExperto() > 1) {
     		return TipoOpinion.NINGUNA;
     	}
     	
