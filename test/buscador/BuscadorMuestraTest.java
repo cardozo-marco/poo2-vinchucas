@@ -32,7 +32,7 @@ class BuscadorMuestraTest {
 
     @Test
     public void testBuscarConFiltroEspecie() {
-        Filtro filtroEspecie = new FiltroTipoInsectoMuestra(TipoOpinion.VINCHUCA);
+        Filtro filtroEspecie = new FiltroTipoInsecto(TipoOpinion.VINCHUCA);
 
         List<Muestra> resultado = buscador.buscar(Arrays.asList(muestra1, muestra2), filtroEspecie);
 
@@ -44,8 +44,8 @@ class BuscadorMuestraTest {
     public void testBuscarConFiltroCompuestoAND() {
         muestra1.verificar();
 
-        Filtro filtroEspecie = new FiltroTipoInsectoMuestra(TipoOpinion.VINCHUCA);
-        Filtro filtroVerificada = new FiltroMuestraVerificada();
+        Filtro filtroEspecie = new FiltroTipoInsecto(TipoOpinion.VINCHUCA);
+        Filtro filtroVerificada = new FiltroVerificada();
 
         Filtro filtroCompuesto = new FiltroAnd(filtroEspecie, filtroVerificada);
 
@@ -57,7 +57,7 @@ class BuscadorMuestraTest {
 
     @Test
     public void testBuscarSinCoincidencias() {
-        Filtro filtroFecha = new FiltroFechaCreacionMuestra(LocalDate.of(2025, 1, 1)); //ninguna muestra tiene esa fecha
+        Filtro filtroFecha = new FiltroFechaCreacion(LocalDate.of(2025, 1, 1)); //ninguna muestra tiene esa fecha
 
         List<Muestra> resultado = buscador.buscar(Arrays.asList(muestra1, muestra2), filtroFecha);
 

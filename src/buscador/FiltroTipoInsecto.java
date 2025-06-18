@@ -3,10 +3,10 @@ package buscador;
 import muestra.Muestra;
 import muestra.enums.TipoOpinion;
 
-public class FiltroTipoInsectoMuestra implements Filtro{
+public class FiltroTipoInsecto implements Filtro{
 	private TipoOpinion tipoBuscado;
 
-    public FiltroTipoInsectoMuestra(TipoOpinion tipoBuscado) {
+    public FiltroTipoInsecto(TipoOpinion tipoBuscado) {
         this.tipoBuscado = tipoBuscado;
     }
 

@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 import muestra.Muestra;
 
-public class FiltroFechaUltimaVotacionMuestra implements Filtro{
+public class FiltroFechaUltimaVotacion implements Filtro{
 	private LocalDate fecha;
 
-    public FiltroFechaUltimaVotacionMuestra(LocalDate fecha) {
+    public FiltroFechaUltimaVotacion(LocalDate fecha) {
         this.fecha = fecha;
     }
 

@@ -2,7 +2,7 @@ package buscador;
 
 import muestra.Muestra;
 
-public class FiltroMuestraVotada implements Filtro{
+public class FiltroVotada implements Filtro{
 	
 	@Override
     public boolean aplica(Muestra muestra) {
