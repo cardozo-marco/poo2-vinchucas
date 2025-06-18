@@ -3,11 +3,11 @@ package usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import muestra.Muestra;
 import muestra.enums.TipoOpinion;
 import usuario.estado.EstadoBasico;
+import usuario.estado.EstadoEspecialista;
 import usuario.estado.EstadoUsuario;
 import muestra.Opinion;
 
@@ -18,12 +18,22 @@ public class Usuario {
     private List<Muestra> envios;
     private List<Opinion> revisiones;
 
+    
+    // Constructor normal, inicia como usuario Basico
     public Usuario(String nombre, String email) {
         this.nombre = nombre;
         this.email = email;
         this.envios = new ArrayList<>();
         this.revisiones = new ArrayList<>();
         this.estado = new EstadoBasico();
+    }
+    
+ // Constructor adicional para especialista, inicia como usuario Especialista
+    public Usuario(String nombre, String email, boolean esEspecialista) {
+        this(nombre, email);
+        if (esEspecialista) {
+        	this.estado = new EstadoEspecialista();
+        }
     }
 
     public boolean esExperto() {
