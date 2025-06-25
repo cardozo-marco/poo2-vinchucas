@@ -1,13 +1,17 @@
 package ubicacion;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Ubicacion {
     private double latitud;
     private double longitud;
+    private CalculadoraDistancias calculadora;
 	
-    //Comprobar si latitud y longitud son valores validos
-	public Ubicacion(Double latitud, Double longitud) {
+	public Ubicacion(Double latitud, Double longitud, CalculadoraDistancias calculadora) {
 		this.setLatitud(latitud);
 		this.setLongitud(longitud);
+		this.calculadora = calculadora;
 	}
 
 	public Double getLatitud() {
@@ -27,7 +31,14 @@ public class Ubicacion {
 	}
 
 	public double distanciaA(Ubicacion otra) {
-	    return CalculadoraDistancia.calcularDistanciaEntreUbicaciones(this, otra);
+	    return calculadora.calcularDistanciaEntreUbicaciones(this, otra);
 	
+	}
+	
+	//A partir de una lista de ubicaciones, retorna aquellas que se encuentran a menos de x kilómetros
+	public List<Ubicacion> ubicacionesCercanas(List<Ubicacion> ubicaciones, double distanciaMax) {
+		return ubicaciones.stream()
+				.filter(ubicacion -> this.distanciaA(ubicacion) <= distanciaMax)
+				.collect(Collectors.toList());
 	}
 }

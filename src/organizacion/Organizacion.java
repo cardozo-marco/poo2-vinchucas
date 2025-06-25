@@ -2,6 +2,8 @@ package organizacion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import muestra.Muestra;
 import ubicacion.Ubicacion;
 import ubicacion.ZonaDeCobertura;
@@ -55,4 +57,21 @@ public class Organizacion implements ZonaObserver {
     public TipoOrganizacion getTipo() { return tipo; }
     public int getCantidadEmpleados() { return cantidadEmpleados; }
     public List<ZonaDeCobertura> getZonas() { return zonas; }
+    
+    
+    //Obtener todas las muestras existentes
+    public List<Muestra> obtenerMuestras() {
+    	return this.zonas.stream()
+    			   .flatMap(zona -> zona.getMuestras().stream())
+    			   .distinct()
+    			   .collect(Collectors.toList());
+    }
+    
+    //Dado una muestra, conocer todas las muestras obtenidas a menos de x kilómetros.
+    public List<Muestra> muestrasCercanas(Muestra muestraObjetivo, double distanciaEnKm) {
+    	return this.obtenerMuestras().stream()
+    			.filter(muestra -> !muestra.equals(muestraObjetivo))
+    			.filter(muestra -> muestra.getUbicacion().distanciaA(muestraObjetivo.getUbicacion()) <= distanciaEnKm)
+				.collect(Collectors.toList());
+    }
 }

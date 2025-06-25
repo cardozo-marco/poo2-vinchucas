@@ -91,4 +91,27 @@ class MuestraTest {
     void testGetUbicacion() {
         assertEquals(ubicacion, muestra.getUbicacion());
     }
+    
+    @Test
+    void testGetFechaUltimaOpinion() {
+    	Opinion opinion1 = mock(Opinion.class);
+    	Opinion opinion2 = mock(Opinion.class);
+    	
+    	when(opinion1.getFecha()).thenReturn(LocalDate.of(2023, 12, 25));
+    	when(opinion2.getFecha()).thenReturn(LocalDate.of(2025, 11, 25));
+    	
+    	muestra.agregarOpinionAlHistorial(opinion1);
+    	muestra.agregarOpinionAlHistorial(opinion2);
+    	
+    	LocalDate resultado = muestra.getFechaUltimaVotacion();
+    	
+    	assertEquals(LocalDate.of(2025, 11, 25), resultado);
+    }
+    
+    @Test
+    void testGetFechaUltimaOpinionSinOpiniones() {
+    	LocalDate resultado = muestra.getFechaUltimaVotacion();
+    	
+    	assertEquals(fechaCreacion, resultado);
+    }
 }
