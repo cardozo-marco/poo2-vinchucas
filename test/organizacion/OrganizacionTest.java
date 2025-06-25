@@ -94,7 +94,7 @@ public class OrganizacionTest {
          organizacion.agregarZona(zona2);
          
          // Exercise
-         List<Muestra> resultado = organizacion.obtenerMuestras();
+         List<Muestra> resultado = organizacion.getMuestras();
          
          assertEquals(3, resultado.size());
          assertTrue(resultado.contains(muestra1));
