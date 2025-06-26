@@ -13,14 +13,16 @@ public class ZonaDeCobertura implements MuestraObserver {
     private double radio;
     private List<Muestra> muestras;
     private List<Organizacion> organizacionesRegistradas;
+    private CalculadoraDistancias calculadora;
 
 
-    public ZonaDeCobertura(String nombre, Ubicacion epicentro, double radioKm) {
+    public ZonaDeCobertura(String nombre, Ubicacion epicentro, double radioKm, CalculadoraDistancias calculadora) {
         this.nombre = nombre;
         this.epicentro = epicentro;
         this.radio = radioKm;
         this.muestras = new ArrayList<>();
         this.organizacionesRegistradas = new ArrayList<>();
+        this.calculadora = calculadora;
     }
 
     // Getters
@@ -35,7 +37,7 @@ public class ZonaDeCobertura implements MuestraObserver {
     }
 
     public boolean seSuperponeCon(ZonaDeCobertura otra) {
-        return CalculadoraDistancia.seSuperponenLasZonas(this, otra);
+        return calculadora.seSuperponenLasZonas(this, otra);
     }
 
     // Muestras

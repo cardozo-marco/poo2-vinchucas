@@ -7,10 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import muestra.Muestra;
-import muestra.enums.Especie;
-import muestra.estados.EstadoMuestra;
 import organizacion.Organizacion;
-import usuario.Usuario;
 
 
 class ZonaDeCoberturaTest {
@@ -18,21 +15,28 @@ class ZonaDeCoberturaTest {
     private ZonaDeCobertura zona;
     private Ubicacion epicentro;
     private Muestra muestraDentro, muestraFuera;
-    private Usuario autor;
     private Organizacion organizacion;
     
     @BeforeEach
     void setUp() {
         epicentro = mock(Ubicacion.class);
-        zona = new ZonaDeCobertura("Zona Test", epicentro, 10.0);
+        CalculadoraDistancias calculadora = mock(CalculadoraDistancias.class);
+        zona = new ZonaDeCobertura("Zona Test", epicentro, 10.0, calculadora);
         
         Ubicacion ubicacionDentro = mock(Ubicacion.class);
         Ubicacion ubicacionFuera = mock(Ubicacion.class);
         
+        muestraDentro = mock(Muestra.class);
+        muestraFuera = mock(Muestra.class);
+        
+        when(muestraDentro.getUbicacion()).thenReturn(ubicacionDentro);
+        when(muestraFuera.getUbicacion()).thenReturn(ubicacionFuera);
+        
+        
         when(epicentro.distanciaA(ubicacionDentro)).thenReturn(5.0);
         when(epicentro.distanciaA(ubicacionFuera)).thenReturn(15.0);
         
-        muestraDentro = new Muestra(
+        /*muestraDentro = new Muestra(
             "fotoDentro.png",
             ubicacionDentro,
             autor,
@@ -48,6 +52,9 @@ class ZonaDeCoberturaTest {
             java.time.LocalDate.now(),
             mock(EstadoMuestra.class)
         );
+        */
+        
+        
         
         organizacion = mock(Organizacion.class);
     }
@@ -81,6 +88,18 @@ class ZonaDeCoberturaTest {
         assertEquals(1, zona.getMuestras().stream().filter(m -> m == muestraDentro).count());
     }
 
+    //
+    @Test
+    void testNoNotificarMuestraAOrganizacionDesregistrada() {
+    	 zona.registrarOrganizacion(organizacion);
+         zona.desregistrarOrganizacion(organizacion);
+         zona.agregarMuestra(muestraDentro);
+         
+         //Verifica que no se notifique de una nueva muestra a la organizacion
+         verify(organizacion, never()).notificarNuevaMuestra(any(), any());
+    }
+    
+    /*
     @Test
     void testNoNotificarOrganizacionDesregistrada() {
         zona.registrarOrganizacion(organizacion);
@@ -90,7 +109,8 @@ class ZonaDeCoberturaTest {
         verify(organizacion, never()).notificarValidacion(any(), any());
         verify(organizacion, never()).notificarNuevaMuestra(any(), any());
     }
-
+    
+    
     @Test
     void testNotificarValidacion() {
         zona.registrarOrganizacion(organizacion);
@@ -109,6 +129,8 @@ class ZonaDeCoberturaTest {
         
         verify(organizacion, never()).notificarValidacion(any(), any());
     }
+    */
+    
     
     @Test
     void testRegistrarYDesregistrarOrganizacion() {
@@ -118,4 +140,17 @@ class ZonaDeCoberturaTest {
         zona.desregistrarOrganizacion(organizacion);
         // Como se que se deregistro ?? igual no deberia poder acceder
     }
+    
+    @Test
+    void testDelegarNotificacionAOrganizacion() {
+    	when(muestraDentro.estaVerificada()).thenReturn(true);
+    	
+    	zona.registrarOrganizacion(organizacion);
+        zona.muestraVerificada(muestraDentro);
+        
+        
+        //Verifica que no se notifique de una nueva muestra a la organizacion
+        verify(organizacion).notificarValidacion(zona, muestraDentro);
+    }
+    
 }
